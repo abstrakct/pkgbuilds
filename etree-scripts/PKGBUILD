@@ -1,0 +1,44 @@
+# This is an example PKGBUILD file. Use this as a start to creating your own,
+# and remove these comments. For more information, see 'man PKGBUILD'.
+# NOTE: Please fill out the license field for your package! If it is unknown,
+# then please put 'unknown'.
+
+# Maintainer: Rolf Klausen <rolf.klausen@gmail.com>
+pkgname=etree-scripts
+pkgver=3.2.1
+pkgrel=1
+pkgdesc="a customized version of etree-scripts, a set of (mostly) Perl scripts for lossless audio freaks who get busy on the command line."
+arch=('any')
+url=""
+license=('GPL')
+groups=()
+depends=('perl' 'perl-module-build')
+makedepends=()
+checkdepends=()
+optdepends=('flac: flac support'
+			'shorten: shorten (.shn) support'
+			'shntool: tools for dealing with .shn files'
+			'cdrkit: for burning cds'
+			'lame: for encoding to mp3'
+			'vorbis-tools: for encoding to ogg'
+)
+provides=(etree-scripts)
+conflicts=()
+options=()
+install=
+changelog=
+source=("https://github.com/abstrakct/$pkgname/archive/$pkgver.tar.gz")
+noextract=()
+md5sums=('SKIP')
+
+build() {
+	cd "$pkgname-$pkgver"
+	perl ./Build.PL --destdir "$pkgdir" --install_base /usr --install_path lib=/usr/lib/perl5/site_perl --install_path bindoc=/usr/share/man/man1 --install_path libdoc=/usr/share/man/man3 --install_path bin=/usr/bin
+	./Build installdeps   # using AUR packages is probably a better idea
+}
+
+package() {
+	cd "$pkgdir"
+	../../src/"$pkgname-$pkgver"/Build install
+	#./Build install
+}

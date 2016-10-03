@@ -1,0 +1,4 @@
+Some custom PKGBUILD files.
+
+Contents:
+etree-scripts: a customized version of the etree-scripts collection of useful tools for processing live recordings in lossless formats.
